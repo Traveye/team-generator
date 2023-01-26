@@ -8,15 +8,19 @@ const { resolve } = require('path');
 inquirer.prompt ([
     {
         name: mngrName,
-        message: "Please enter the team manager's name"
+        message: "Please enter the team manager's name."
     },
     {
         name: mngrId,
-        message: "Please enter the team manager's ID"
+        message: "Please enter the team manager's ID."
+    },
+    {
+        name: mngrEmail,
+        message: "Please enter the team manager's email address."
     },
     {
         name: officeNum,
-        message: "Please enter the team manager's office number"
+        message: "Please enter the team manager's office number."
     },
     {
         type: 'list',
