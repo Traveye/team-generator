@@ -135,8 +135,8 @@ function makeCards() {
   const employeeDivs = employees.map((employee) => {
     if (employee.getRole() === "Manager") {
       return `
-    <div class="card">
-        <div class="card-content column is-one-fifth">
+    <div class="card column is-one-fifth">
+        <div class="card-content">
             <div class="media">
                 <div class="media-content">
                     <p class="title is-4">Role: ${employee.getRole()}</p>
