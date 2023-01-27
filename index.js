@@ -5,9 +5,11 @@ const Employee = require("./lib/employee");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
-let employees = [];
 
-//get initial manager details
+let employees = [];
+let cardDivs = [];
+
+//initial manager obj build
 function init() {
   inquirer
     .prompt([
@@ -49,7 +51,7 @@ function menu() {
     ])
     .then((answers) => {
       if (answers.role === "Finish") {
-        console.log(employees);
+        makeCards();
       } else if (answers.role === "Engineer") {
         addEngineer();
       } else {
@@ -113,34 +115,87 @@ function addIntern() {
     });
 }
 
-// function buildCards() {}
 
 // generate team cards
+
+function makeCards(); {
 const employeeDivs = employees.map(employee => {
-    return `
+    if(employee.role === "Manager"){
+        return `
     <div class="card">
-    <div class="card-content">
-        <div class="media">
-            <div class="media-content">
-                <p class="title is-4">Role: ${employee.getRole()}</p>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">Role: ${employee.getRole()}</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3>${employee.getName()}</h3><br>
+                <p>ID: ${employee.getId()}</p>
+                <p>Email: <a href='mailto:${employee.email}'>${employee.email}</a></p>
             </div>
         </div>
+    </div>
+    `;
+    }
+    else if(employee.role === "Engineer") {
+        return `
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">Role: ${employee.getRole()}</p>
+                </div>
+            </div>
 
-        <div class="content">
-            <h3>${employee.getName()}</h3><br>
-            <p>ID: ${employee.getId()}</p>
-            <a href="mailto:${employee.getEmail()}">Email: ${employee.getEmail()}</a>
+            <div class="content">
+                <h3>${employee.getName()}</h3><br>
+                <p>ID: ${employee.getId()}</p>
+                <p>Email: <a href='mailto:${employee.email}'>${employee.email}</a></p>
+                <p>Github: <a href='https://github.com/${employee.github}'>${employee.github}</a></p>
+            </div>
         </div>
     </div>
-</div>
     `;
+
+    }
+    else {
+        return `
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">Role: ${employee.getRole()}</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3>${employee.getName()}</h3><br>
+                <p>ID: ${employee.getId()}</p>
+                <p>Email: <a href='mailto:${employee.getEmail()}'>${employee.getEmail()}</a></p>
+                <p>School: ${employee.school}</p>
+            </div>
+        </div>
+    </div>
+    `;
+
+    }
+
+
   });
+
+    // makeHtml();  
+    console.log(employeeDivs)
+
+}
 
 
   
 
 // then we use fs to generate the the html file - need template to add in info
 
+function makeHtml() {
 html = `
 <!DOCTYPE html>
 <html>
@@ -167,6 +222,7 @@ html = `
   </body>
 </html>
 `;
+}
 
 // once the html page is open, i should be able to click on each email or ghub username to open either the email in defaul email app or ghub in new tab.
 
