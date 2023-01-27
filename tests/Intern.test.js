@@ -1,18 +1,21 @@
-// name
-// must be string, must have at least 1 letter
-// id
-// must be a num, must be greater than zero
-// email
-// must include @ must be valid domain ?
-//school must be string
-//getschool - must return school
-// get role - override to return intern
-//prototype methods
-//getName()
-// must return name
-//getID()
-// must return id
-//getEmail()
-// must return email
-//getRole()
-// must retunrn empolyee
+const Intern = require("../lib/intern");
+
+describe('obj build error', () => {
+    it('should throw error if no name provided', () => {
+        expect(() => new Intern()).toThrowError();
+    })
+})
+
+describe('getRole()', () => {
+    it('should return correct role', () => {
+        const employee = new Intern("Ted", '5', "ted@ted.com", 'FSU');
+        expect(employee.getRole()).toBe('Intern');
+    })
+})
+
+describe('getGithub()', () => {
+    it('should return correct role', () => {
+        const employee = new Intern("Ted", '5', "ted@ted.com", 'UNF');
+        expect(employee.getSchool()).toBe('UNF');
+    })
+})

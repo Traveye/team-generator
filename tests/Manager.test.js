@@ -1,17 +1,21 @@
-// name
-// must be string, must have at least 1 letter
-// id
-// must be a num, must be greater than zero
-// email
-// must include @ must be valid domain ?
-// office number -- must be num greater than 0
-// getRole- override to retunr manager
-//prototype methods
-//getName()
-// must return name
-//getID()
-// must return id
-//getEmail()
-// must return email
-//getRole()
-// must retunrn empolyee
+const Manager = require("../lib/manager");
+
+describe('obj build error', () => {
+    it('should throw error if no name provided', () => {
+        expect(() => new Manager()).toThrowError();
+    })
+})
+
+describe('getRole()', () => {
+    it('should return correct role', () => {
+        const employee = new Manager("Ted", '5', "ted@ted.com", '3');
+        expect(employee.getRole()).toBe('Manager');
+    })
+})
+
+describe('getGithub()', () => {
+    it('should return correct role', () => {
+        const employee = new Manager("Ted", '5', "ted@ted.com", '3');
+        expect(employee.getOffice()).toBe('3');
+    })
+})
