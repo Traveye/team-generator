@@ -7,7 +7,7 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
 let employees = [];
-let cardDivs = [];
+
 
 //initial manager obj build
 function init() {
@@ -186,8 +186,8 @@ const employeeDivs = employees.map(employee => {
 
   });
 
-    // makeHtml();  
-    console.log(employeeDivs)
+    makeHtml(employeeDivs);  
+   
 
 }
 
@@ -196,33 +196,39 @@ const employeeDivs = employees.map(employee => {
 
 // then we use fs to generate the the html file - need template to add in info
 
-function makeHtml() {
-html = `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Team Builder</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-  </head>
-  <body>
-    <section class="hero is-small is-link">
-      <div class="hero-body has-text-centered">
-        <p class="title">My Team</p>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container d-flex">
-        ${"cards"}
-      </div>
-    </section>
-  </body>
-</html>
-`;
+function makeHtml(employeeDivs) {
+    let cardDivs = employeeDivs.join("");
+    let html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Team Builder</title>
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+        />
+    </head>
+    <body>
+        <section class="hero is-small is-link">
+        <div class="hero-body has-text-centered">
+            <p class="title">My Team</p>
+        </div>
+        </section>
+        <section class="section">
+        <div class="container d-flex">
+            ${cardDivs}
+        </div>
+        </section>
+    </body>
+    </html>
+    `;
+
+    fs.writeFile("team.html", html, (err) => {
+        if (err) throw err;
+        console.log("The file has been saved!");
+    });
 }
 
 // once the html page is open, i should be able to click on each email or ghub username to open either the email in defaul email app or ghub in new tab.
