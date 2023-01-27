@@ -5,6 +5,7 @@ const Employee = require("./lib/employee");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+let employees = [];
 
 //get initial manager details
 function init() {
@@ -29,6 +30,7 @@ function init() {
     ])
     .then((answers) => {
       const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNum);
+      employees.push(manager);
       menu();
     });
 }
@@ -47,7 +49,7 @@ function menu() {
     ])
     .then((answers) => {
       if (answers.role === "Finish") {
-        console.log("done");
+        console.log(employees);
       } else if (answers.role === "Engineer") {
         addEngineer();
       } else {
@@ -79,6 +81,8 @@ function addEngineer() {
     ])
     .then((answers) => {
       const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+      employees.push(engineer);
+      menu();
     });
 }
 //build intern obj
@@ -91,7 +95,7 @@ function addIntern() {
       },
       {
         name: 'id',
-        message: "Please enter th intern's ID.",
+        message: "Please enter the intern's ID.",
       },
       {
         name: 'email',
@@ -104,12 +108,36 @@ function addIntern() {
     ])
     .then((answers) => {
       const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+      employees.push(intern);
+      menu();
     });
 }
 
 // function buildCards() {}
 
 // generate team cards
+const employeeDivs = employees.map(employee => {
+    return `
+    <div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <p class="title is-4">Role: ${employee.getRole()}</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <h3>${employee.getName()}</h3><br>
+            <p>ID: ${employee.getId()}</p>
+            <a href="mailto:${employee.getEmail()}">Email: ${employee.getEmail()}</a>
+        </div>
+    </div>
+</div>
+    `;
+  });
+
+
+  
 
 // then we use fs to generate the the html file - need template to add in info
 
