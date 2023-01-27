@@ -123,7 +123,7 @@ const employeeDivs = employees.map(employee => {
     if(employee.getRole() === "Manager"){
         return `
     <div class="card">
-        <div class="card-content">
+        <div class="card-content column is-one-fifth">
             <div class="media">
                 <div class="media-content">
                     <p class="title is-4">Role: ${employee.getRole()}</p>
@@ -142,7 +142,7 @@ const employeeDivs = employees.map(employee => {
     }
     else if(employee.getRole() === "Engineer") {
         return `
-    <div class="card">
+    <div class="card column is-one-fifth">
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
@@ -163,7 +163,7 @@ const employeeDivs = employees.map(employee => {
     }
     else {
         return `
-    <div class="card">
+    <div class="card column is-one-fifth">
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
@@ -217,7 +217,7 @@ function makeHtml(employeeDivs) {
         </div>
         </section>
         <section class="section">
-        <div class="container d-flex">
+        <div class="container columns is-multiline">
             ${cardDivs}
         </div>
         </section>
