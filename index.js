@@ -118,9 +118,9 @@ function addIntern() {
 
 // generate team cards
 
-function makeCards(); {
+function makeCards() {
 const employeeDivs = employees.map(employee => {
-    if(employee.role === "Manager"){
+    if(employee.getRole() === "Manager"){
         return `
     <div class="card">
         <div class="card-content">
@@ -133,13 +133,14 @@ const employeeDivs = employees.map(employee => {
             <div class="content">
                 <h3>${employee.getName()}</h3><br>
                 <p>ID: ${employee.getId()}</p>
-                <p>Email: <a href='mailto:${employee.email}'>${employee.email}</a></p>
+                <p>Email: <a href='mailto:${employee.getEmail()}'>${employee.getEmail()}</a></p>
+                <p>Office Number: ${employee.getOffice()}</p>
             </div>
         </div>
     </div>
     `;
     }
-    else if(employee.role === "Engineer") {
+    else if(employee.getRole() === "Engineer") {
         return `
     <div class="card">
         <div class="card-content">
@@ -152,7 +153,7 @@ const employeeDivs = employees.map(employee => {
             <div class="content">
                 <h3>${employee.getName()}</h3><br>
                 <p>ID: ${employee.getId()}</p>
-                <p>Email: <a href='mailto:${employee.email}'>${employee.email}</a></p>
+                <p>Email: <a href='mailto:${employee.getEmail()}'>${employee.getEmail()}</a></p>
                 <p>Github: <a href='https://github.com/${employee.github}'>${employee.github}</a></p>
             </div>
         </div>
