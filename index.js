@@ -1,35 +1,118 @@
 //linking dependencies
 const fs = require('fs');
 const inquirer = require('inquirer');
-const { resolve } = require('path');
+const Employee = require('./lib/employee')
+const Manager = require('./lib/manager')
+const Engineer = require('./lib/engineer')
+const Intern = require('./lib/intern')
 
-//first a questionairre using prompt we have 4 employee cats with 4 diff question tracks
-
+//get initial manager details
+function init() {
 inquirer.prompt ([
     {
-        name: mngrName,
+        name: name,
         message: "Please enter the team manager's name."
     },
     {
-        name: mngrId,
+        name: id,
         message: "Please enter the team manager's ID."
     },
     {
-        name: mngrEmail,
+        name: email,
         message: "Please enter the team manager's email address."
     },
     {
         name: officeNum,
         message: "Please enter the team manager's office number."
     },
-    {
-        type: 'list',
-        name: role,
-        message: "Please select a role from the options below:",
-        choices: ['Manager', 'Employee', 'Engineer', 'Intern']
-    },
 
-]);
+]).then(answers => {
+    const manager = new Manager(name, id, email, officeNum);
+    menu();
+});
+}
+
+//this menu allows to select to add new members or to finalize
+function menu() {
+    inquirer.prompt ([
+        {
+            type: 'list',
+            name: role,
+            message: "To add to your team, please select a role from the options below or click finish to get your final team page:",
+            choices: ['Engineer', 'Intern', 'Finish']
+        },
+
+    ]).then(answers => {
+        if(role === 'Finish'){
+            console.log('done')
+        } 
+        else if(role === 'Engineer') {
+            addEngineer();
+        }
+        else {
+            addIntern();
+        }
+        
+
+    });
+
+}
+
+//builds engineer obj
+function addEngineer() {
+    inquirer.prompt ([
+        {
+            name: name,
+            message: "Please enter the engineer's name."
+        },
+        {
+            name: id,
+            message: "Please enter the engineers ID."
+        },
+        {
+            name: email,
+            message: "Please enter the engineer's email address."
+        },
+        {
+            name: github,
+            message: "Please enter the engineer's github username."
+        },
+    ]).then(answers => {
+        const engineer = new Engineer(name, id, email, github);
+
+    })
+
+}
+//build intern obj
+function addEngineer() {
+    inquirer.prompt ([
+        {
+            name: name,
+            message: "Please enter the intern's name."
+        },
+        {
+            name: id,
+            message: "Please enter th intern's ID."
+        },
+        {
+            name: email,
+            message: "Please enter the intern's email address."
+        },
+        {
+            name: school,
+            message: "Please enter the intern's school."
+        },
+    ]).then(answers => {
+        const intern = new Intern(name, id, email, school);
+
+    })
+
+}
+
+function buildCards() {
+
+}
+
 
 // generate team cards
 
